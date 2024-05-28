@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .invoice-box {
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Invoice Generator</h2>
+        <form id="invoice-form">
+            <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
+            </div>
+            <div class="form-group">
+                <label for="clientName">Client Name</label>
+                <input type="text" class="form-control" id="clientName" placeholder="Enter client name" required>
+            </div>
+            <div class="form-group">
+                <label for="clientAddress">Client Address</label>
+                <input type="text" class="form-control" id="clientAddress" placeholder="Enter client address" required>
+            </div>
+            <div class="form-group">
+                <label for="invoiceDate">Invoice Date</label>
+                <input type="date" class="form-control" id="invoiceDate" required>
+            </div>
+            <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" id="dueDate" required>
+            </div>
+            <div class="form-group">
+                <label for="items">Items</label>
+                <div id="items" class="mb-3">
+                    <div class="row mb-2">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Item description" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Price" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="addItem()">Add Item</button>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Invoice</button>
+        </form>
+        <div id="invoice" class="invoice-box mt-5" style="display: none;">
+            <h2 class="text-center">Invoice</h2>
+            <p><strong>Company Name:</strong> <span id="invoiceCompanyName"></span></p>
+            <p><strong>Client Name:</strong> <span id="invoiceClientName"></span></p>
+            <p><strong>Client Address:</strong> <span id="invoiceClientAddress"></span></p>
+            <p><strong>Invoice Date:</strong> <span id="invoiceDateDisplay"></span></p>
+            <p><strong>Due Date:</strong> <span id="invoiceDueDateDisplay"></span></p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                </tbody>
+            </table>
+            <h3 class="text-right">Total: $<span id="invoiceTotal"></span></h3>
+            <button class="btn btn-success" onclick="downloadInvoice()">Download PDF</button>
+            <button class="btn btn-info" onclick="printInvoice()">Print</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+        function addItem() {
+            $('#items').append(`
+                <div class="row mb-2">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Item description" required>
+                    </div>
+                    <div class="col">
+                        <input type="number" class="form-control" placeholder="Price" required>
+                    </div>
+                </div>
+            `);
+        }
+
+        $('#invoice-form').on('submit', function(e) {
+            e.preventDefault();
+
+            let companyName = $('#companyName').val();
+            let clientName = $('#clientName').val();
+            let clientAddress = $('#clientAddress').val();
+            let invoiceDate = $('#invoiceDate').val();
+            let dueDate = $('#dueDate').val();
+
+            $('#invoiceCompanyName').text(companyName);
+            $('#invoiceClientName').text(clientName);
+            $('#invoiceClientAddress').text(clientAddress);
+            $('#invoiceDateDisplay').text(invoiceDate);
+            $('#invoiceDueDateDisplay').text(dueDate);
+
+            let total = 0;
+            $('#invoiceItems').empty();
+
+            $('#items .row').each(function() {
+                let itemDescription = $(this).find('input').eq(0).val();
+                let itemPrice = parseFloat($(this).find('input').eq(1).val());
+
+                $('#invoiceItems').append(`
+                    <tr>
+                        <td>${itemDescription}</td>
+                        <td>$${itemPrice.toFixed(2)}</td>
+                    </tr>
+                `);
+
+                total += itemPrice;
+            });
+
+            $('#invoiceTotal').text(total.toFixed(2));
+            $('#invoice').show();
+        });
+
+        function downloadInvoice() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            doc.text(`Company Name: ${$('#invoiceCompanyName').text()}`, 10, 10);
+            doc.text(`Client Name: ${$('#invoiceClientName').text()}`, 10, 20);
+            doc.text(`Client Address: ${$('#invoiceClientAddress').text()}`, 10, 30);
+            doc.text(`Invoice Date: ${$('#invoiceDateDisplay').text()}`, 10, 40);
+            doc.text(`Due Date: ${$('#invoiceDueDateDisplay').text()}`, 10, 50);
+
+            let y = 60;
+            $('#invoiceItems tr').each(function() {
+                let item = $(this).find('td').eq(0).text();
+                let price = $(this).find('td').eq(1).text();
+
+                doc.text(`Item: ${item}`, 10, y);
+                doc.text(`Price: ${price}`, 150, y);
+                y += 10;
+            });
+
+            doc.text(`Total: $${$('#invoiceTotal').text()}`, 10, y + 10);
+            doc.save('invoice.pdf');
+        }
+
+        function printInvoice() {
+            let printContents = document.getElementById('invoice').innerHTML;
+            let originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
