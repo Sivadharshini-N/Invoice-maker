@@ -7,6 +7,9 @@
     <title>Invoice maker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+      
+    </style>
 
 </head>
 
@@ -24,6 +27,7 @@
                     <div class="col-2">
                         <div class="container text-center pt-3" style="border-radius: 8px;height: 100px; background-color: rgba(68,133,219,0.1);">
                         
+                            <input type="file" accept="image/*" id="uplogo">
                             <img src="assets/images/upload.png" id="logo" name="logo" width="50px" height="50px" alt="">
                             <h6 style="color:rgb(68, 133, 219);">Upload</h6>                        
                         </div>
@@ -54,7 +58,7 @@
                 <input type="text" autocomplete="on" style="border: none;border-radius: 4px;" placeholder="Company's Address" class="inp" id="address"/><br><br>
                 <input type="text" autocomplete="on" style="border: none;border-radius: 4px;" placeholder="City" class="inp" id="city"/><br><br>
                 <input type="text" autocomplete="on" style="border: none;border-radius: 4px;" placeholder="State" class="inp" id="state"/><br><br>
-                <select id="country" autocomplete="on" style="border: none;width: 190px;" name="country" class="form-control">
+                <select id="country" autocomplete="on" style="border: none;width: 190px;padding: 0;" name="country" class="form-control">
                     <option value="Afghanistan">Afghanistan</option>
                     <option value="Åland Islands">Åland Islands</option>
                     <option value="Albania">Albania</option>
@@ -303,7 +307,7 @@
                     <option value="Zambia">Zambia</option>
                     <option value="Zimbabwe">Zimbabwe</option>
                 </select>
-                </div><br><br>
+                </div><br><br><br>
 
 
 
@@ -576,6 +580,47 @@
                                 <option value="Zambia">Zambia</option>
                                 <option value="Zimbabwe">Zimbabwe</option>
                             </select>
+                            <br>
+                           <b style="font-weight: 500;"> Place Of Supply:</b>
+                            <select id="state" >
+                                <option value="st" selected>State</option>  
+                                <option value="AP">Andhra Pradesh</option>  
+                                <option value="AR">Arunachal Pradesh</option>
+                                <option value="AS">Assam</option>
+                                <option value="BR">Bihar</option>
+                                <option value="CT">Chhattisgarh</option>
+                                <option value="GA">Gujarat</option>
+                                <option value="HR">Haryana</option>
+                                <option value="HP">Himachal Pradesh</option>
+                                <option value="JK">Jammu and Kashmir</option>
+                                <option value="GA">Goa</option>
+                                <option value="JH">Jharkhand</option>
+                                <option value="KA">Karnataka</option>
+                                <option value="KL">Kerala</option>
+                                <option value="MP">Madhya Pradesh</option>
+                                <option value="MH">Maharashtra</option>
+                                    <option value="MN">Manipur</option>
+                                    <option value="ML">Meghalaya</option>
+                                <option value="MZ">Mizoram</option>
+                                <option value="NL">Nagaland</option>
+                                <option value="OR">Odisha</option>
+                                <option value="PB">Punjab</option>
+                                <option value="RJ">Rajasthan</option>
+                                <option value="SK">Sikkim</option>
+                                <option value="TN">Tamil Nadu</option>
+                                <option value="TG">Telangana</option>
+                                <option value="TR">Tripura</option>
+                                <option value="UT">Uttarakhand</option>
+                                <option value="UP">Uttar Pradesh</option>
+                                <option value="WB">West Bengal</option>
+                                <option value="AN">Andaman and Nicobar Islands</option>
+                                <option value="CH">Chandigarh</option>
+                                <option value="DN">Dadra and Nagar Haveli</option>
+                                <option value="DD">Daman and Diu</option>
+                                <option value="DL">Delhi</option>
+                                <option value="LD">Lakshadweep</option>
+                                <option value="PY">Puducherry</option>
+                            </select>
                             
                         </div>
                         <div class="col-md-6 col-sm-1">
@@ -594,7 +639,7 @@
                             </div><br>
                         </div>
                     </div>
-                </div>
+                </div><br><br>
 
 
 
@@ -602,21 +647,69 @@
 
 
 
+            <div class="container">
+ 
+                <table class="table">
+                    <thead class="thead-dark" width="100%">
+                        <tr class="thead-dark" >
+                            <th scope="col" width="25%"><input type="text" name="itemdeshead" id="itemdeshead" class="text-light bg-dark input-group-sm" value="Item Description" ></th>
+                            <th scope="col" width="5%"><input type="text" name="qtyhead" id="qtyhead" class="text-light bg-dark" value="Qty"></th>
+                            <th scope="col" width="10%"><input type="text" name="ratehead" id="ratehead" class="text-light bg-dark " value="Rate"></th>
+                            <th scope="col" width="10%"><input type="text" id="SGST" name="SGST" class="text-light bg-dark" value="SGST" readonly></th>
+                            <th scope="col" width="10%"><input type="text" name="CGST" id="CGST" class="text-light bg-dark" value="CGST" readonly></th>
+                            <th scope="col" width="10%"><input type="text" name="cess" id="CESS" class="text-light bg-dark" value="Cess" readonly></th>
+                            <th scope="col" width="10%"><input type="text" name="amt" id="AMT" class="text-light bg-dark" value="Amount"></th>
+                        </tr>
+
+                    </thead>
 
 
+                    <tbody id="tablebody">
+                        
+                        <tr>
+                            <td><textarea name="" rows="3" id="" >Brochure Design</textarea><br><br><input type="text" placeholder="HSN/SAC"></td>
+                            <td><input type="number" oninput="calculateTotals()" class="qty" value="2"></td>
+                            <td><input type="number" oninput="calculateTotals()" value="100.00" class="rate" step="0.01"></td>
+                            <td><input type="number" oninput="calculateTotals()" class="sgst"  value="6" ><br><p class="csgst"></p></td>
+                            <td><input type="number" oninput="calculateTotals()" class="cgst"  value="6" ><br><p class="ccgst"></p></td>
+                            <td><input type="number" oninput="calculateTotals()" class="cess"  value="0" ><br><p class="ccess"></p></td>
+                            <td><p class="total"></p></td>
+                        </tr>
+                        <tr >
+                            <td><textarea name="" id="" placeholder="Enter item " rows="3"></textarea><br><br><input type="text" placeholder="HSN/SAC"></td>
+                            <td><input xtype="number" oninput="calculateTotals()" class="qty" value="1"></td>
+                            <td><input type="number"  oninput="calculateTotals()" value="0.00" step="0.01" class="rate" step="0.01"></td>
+                            <td><input type="number" oninput="calculateTotals()" class="sgst"  value="0" ><br><span class="csgst"></span></td>
+                            <td><input type="number" oninput="calculateTotals()" class="cgst"  value="0" ><br><p class="ccgst"></p></td>  
+                            <td><input type="number" oninput="calculateTotals()" class="cess"  value="0" ><br><p class="ccess"></p></td>
+                            <td><p class="total"></p></td>                         
+                        </tr>
+                        <tr>
+                            <td><textarea name="" id="" placeholder="Enter item " rows="3"></textarea><br><br><input type="text" placeholder="HSN/SAC"></td>
+                            <td><input type="number" oninput="calculateTotals()" class="qty" value="1"></td>
+                            <td><input type="number" oninput="calculateTotals()" value="0.00" step="0.01" class="rate" step="0.01"></td>
+                            <td><input type="number" oninput="calculateTotals()" class="sgst"  value="0" ><br><span class="csgst"></span></td>
+                            <td><input type="number" oninput="calculateTotals()" class="cgst"  value="0" ><br><p class="ccgst"></p></td> 
+                            <td><input type="number" oninput="calculateTotals()" class="cess"  value="0"><br><p class="ccess"></p></td>
+                            <td><p class="total"></p></td>   
+                                                
+                        </tr>
 
+                        
+                        
+                    </tbody>
+                    
 
-
-
-               
+                </table>
+                <button type="button" onclick="additem()"  >Add Line Item</button>
             </div>
 
 
 
-        </form>
 
+                
         
-
+<br><br><br>
     </div>
 
 

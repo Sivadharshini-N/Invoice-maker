@@ -2,3 +2,23 @@ input
 {
     border: none;
 }
+
+
+
+    .table input {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+       
+    }
+    .table textarea
+    {
+        width: 100%;
+        border-radius: 8px;
+    }
+    .noscroll::-webkit-outer-spin-button,
+    .noscroll::-webkit-inner-spin-button
+    {
+        -webkit-appearance: none;
+        margin: 0;
+    }
