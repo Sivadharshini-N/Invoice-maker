@@ -24,7 +24,7 @@
 
                 <!-- logo upload -->
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-3">
                         <div class="container text-center pt-3" style="border-radius: 8px;height: 100px; background-color: rgba(68,133,219,0.1);">
                         
                             <input type="file" accept="image/*" id="uplogo">
@@ -669,7 +669,7 @@
                         <tr>
                             <td><textarea name="" rows="3" id="" >Brochure Design</textarea><br><br><input type="text" placeholder="HSN/SAC"></td>
                             <td><input type="number" oninput="calculateTotals()" class="qty" value="2"></td>
-                            <td><input type="number" oninput="calculateTotals()" value="100.00" class="rate" step="0.01"></td>
+                            <td><input type="number" oninput="calculateTotals()" value="100.00" class="rate" ></td>
                             <td><input type="number" oninput="calculateTotals()" class="sgst"  value="6" ><br><p class="csgst"></p></td>
                             <td><input type="number" oninput="calculateTotals()" class="cgst"  value="6" ><br><p class="ccgst"></p></td>
                             <td><input type="number" oninput="calculateTotals()" class="cess"  value="0" ><br><p class="ccess"></p></td>
@@ -678,7 +678,7 @@
                         <tr >
                             <td><textarea name="" id="" placeholder="Enter item " rows="3"></textarea><br><br><input type="text" placeholder="HSN/SAC"></td>
                             <td><input xtype="number" oninput="calculateTotals()" class="qty" value="1"></td>
-                            <td><input type="number"  oninput="calculateTotals()" value="0.00" step="0.01" class="rate" step="0.01"></td>
+                            <td><input type="number"  oninput="calculateTotals()" value="0.00"  class="rate" ></td>
                             <td><input type="number" oninput="calculateTotals()" class="sgst"  value="0" ><br><span class="csgst"></span></td>
                             <td><input type="number" oninput="calculateTotals()" class="cgst"  value="0" ><br><p class="ccgst"></p></td>  
                             <td><input type="number" oninput="calculateTotals()" class="cess"  value="0" ><br><p class="ccess"></p></td>
@@ -687,7 +687,7 @@
                         <tr>
                             <td><textarea name="" id="" placeholder="Enter item " rows="3"></textarea><br><br><input type="text" placeholder="HSN/SAC"></td>
                             <td><input type="number" oninput="calculateTotals()" class="qty" value="1"></td>
-                            <td><input type="number" oninput="calculateTotals()" value="0.00" step="0.01" class="rate" step="0.01"></td>
+                            <td><input type="number" oninput="calculateTotals()" value="0.00"  class="rate" ></td>
                             <td><input type="number" oninput="calculateTotals()" class="sgst"  value="0" ><br><span class="csgst"></span></td>
                             <td><input type="number" oninput="calculateTotals()" class="cgst"  value="0" ><br><p class="ccgst"></p></td> 
                             <td><input type="number" oninput="calculateTotals()" class="cess"  value="0"><br><p class="ccess"></p></td>
@@ -701,8 +701,61 @@
                     
 
                 </table>
-                <button type="button" onclick="additem()"  >Add Line Item</button>
+                <button type="button" onclick="additem()" style="border-color: blue;"  >Add Line Item</button><br><br>
+
+               <div class="container" style="font-size: 20px;margin-left:600px;">
+                    <div class="row ">
+                        <div class="col-3 ">
+                            <input type="text" value="Sub Total">
+
+                        </div>
+                        <div class="col-3 ">
+                            <p id="wholesub"></p>
+                        </div>
+                    </div>   <br>      
+                    <div class="row">
+                        <div class="col-3 ">
+                            <input type="text" value="SGST">
+
+                        </div>
+                        <div class="col-3 ">
+                            <p id="wholesgst"></p>
+                        </div>
+                    </div>  <br> 
+                    <div class="row">
+                        <div class="col-3 ">
+                            <input type="text" value="CGST">
+
+                        </div>
+                        <div class="col-3 ">
+                            <p id="wholecgst"></p>
+                        </div>
+                    </div>   <br>
+                    <div class="row">
+                        <div class="col-3">
+                            <input type="text" value="Total">
+
+                        </div>
+                        <div class="col-3   ">
+                            <p id="wholetot"></p>
+                        </div>
+                    </div>          
+               </div>
+
             </div>
+
+
+            <b><input type="text" value="Notes" style="font-weight: 700;"></b><br>
+            <input type="text" value="It was great doing business with you." style="width: 100%;"><br><br><br>
+
+
+            <b><input type="text" value="Terms & Conditions" style="font-weight: 700;"></b><br>
+            <input type="text" value="Please make the payment by the due date." style="width: 100%;">
+            </div>
+
+
+
+        </form>
 
 
 
