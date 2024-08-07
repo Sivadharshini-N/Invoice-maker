@@ -7,6 +7,9 @@
     <title>Invoice maker</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
       
     </style>
@@ -15,21 +18,19 @@
 
 <body><br>
 
-    <div class="container" style="border: 1px solid black;border-radius: 8px;padding: 30px;padding-top: 50px;">
+    <div class="container" id="inv" style="border: 1px solid black;border-radius: 8px;padding: 30px;padding-top: 50px;">
 
-
+<br><br><br><br>
         <form action="">
             <div class="container " >
 
 
                 <!-- logo upload -->
                 <div class="row">
-                    <div class="col-3">
-                        <div class="container text-center pt-3" style="border-radius: 8px;height: 100px; background-color: rgba(68,133,219,0.1);">
-                        
-                            <input type="file" accept="image/*" id="uplogo">
-                            <img src="assets/images/upload.png" id="logo" name="logo" width="50px" height="50px" alt="">
-                            <h6 style="color:rgb(68, 133, 219);">Upload</h6>                        
+                    <div class="col-2">
+                        <div class="container text-center p-lg-5" onclick="upload()" style="border-radius: 8px; background-color: rgba(68,133,219,0.1);">
+                        <img src="assets/images/upload.png" id="uploadedimg" width="45px" height="45px" alt="">
+                        <input type="file" style="display: none;" id="inputimg" accept="image/*" oncha="changeimg()">
                         </div>
                     </div>
                     <div class="col-3 pt-3">
@@ -765,6 +766,7 @@
 <br><br><br>
     </div>
 
+    <button type="submit" onclick="downloadPDF()" class="btn-danger">Download Invoice as PDF</button>
 
 
 

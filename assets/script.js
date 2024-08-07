@@ -107,4 +107,38 @@ function wholetot()
     wholetotal.innerHTML=sumtot;
 
 }
-   
+const uploadedimg = document.getElementById('uploadedimg');
+        const inputimg = document.getElementById('inputimg');
+
+        function upload() {
+            inputimg.click(); // Trigger file input dialog
+        }
+
+        function changeimg(event) {
+            const file = event.target.files[0];
+           console.log(event);
+           console.log("sdlfj");
+        }
+
+
+async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Use html2canvas to capture the invoice as an image
+    const invoice = document.body;
+    const canvas = await html2canvas(invoice);
+    const imgData = canvas.toDataURL('image/png');
+
+    // Create a new jsPDF instance
+    const pdf = new jsPDF();
+
+    // Add the captured image to the PDF
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+    // Save the PDF
+    pdf.save('invoice.pdf');
+}
+document.getElementById('downloadButton').addEventListener('click', downloadPDF);
