@@ -1,4 +1,4 @@
-#Invoice Maker
+# Invoice Maker
 
 *An intuitive and user-friendly web application for creating and downloading invoices.*
 
