@@ -35,10 +35,12 @@ var wholesub = document.getElementById("wholesub");
 var wholesgst = document.getElementById("wholesgst");
 var wholecgst = document.getElementById("wholecgst");
 var wholetotal = document.getElementById("wholetot");
+var wholeform = document.getElementById("wholeform");
 
 window.onload = function()
 {
     calculateTotals();
+    out();
 }
 
 
@@ -107,38 +109,119 @@ function wholetot()
     wholetotal.innerHTML=sumtot;
 
 }
-const uploadedimg = document.getElementById('uploadedimg');
-        const inputimg = document.getElementById('inputimg');
+const imageDiv = document.getElementById('imageDiv');
+const fileInput = document.getElementById('fileInput');
+const displayImage = document.getElementById('displayImage');
 
-        function upload() {
-            inputimg.click(); // Trigger file input dialog
+imageDiv.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+
+function changeimg(event)
+{
+    const file = event.target.files[0];
+    console.log(event);
+    
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            displayImage.src = e.target.result;
         }
+        reader.readAsDataURL(file);
+    
 
-        function changeimg(event) {
-            const file = event.target.files[0];
-           console.log(event);
-           console.log("sdlfj");
-        }
-
-
-async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-
-    // Use html2canvas to capture the invoice as an image
-    const invoice = document.body;
-    const canvas = await html2canvas(invoice);
-    const imgData = canvas.toDataURL('image/png');
-
-    // Create a new jsPDF instance
-    const pdf = new jsPDF();
-
-    // Add the captured image to the PDF
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-    // Save the PDF
-    pdf.save('invoice.pdf');
 }
-document.getElementById('downloadButton').addEventListener('click', downloadPDF);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const formsum = document.getElementById("formsub");
+formsub.addEventListener('click',out);
+
+function out(event)
+{
+    event.preventDefault();
+    var imgout = document.getElementById("imgout");
+    var tax = document.getElementById("tax").value;
+    var company = document.getElementById("company").value;
+    var name = document.getElementById("name").value;
+    var gstin = document.getElementById("gstin").value;
+    var address = document.getElementById("address").value;
+    var city = document.getElementById("city").value;
+    var state = document.getElementById("state").value;
+    var country = document.getElementById("country").value;
+
+
+    var billto = document.getElementById("billto").value;
+    var clientcmp  = document.getElementById("clientcamp");
+    var cgstin = document.getElementById("cgstin").value;
+    var caddress = document.getElementById("caddress").value;
+    var ccity = document.getElementById("ccity").value;
+    var cstate = document.getElementById("cstate").value;
+    var ccountry = document.getElementById("ccountry").value;
+    var sstate = document.getElementById("sstate").value;
+    console.log(sstate);
+    
+
+    var taxinvout = document.getElementById("taxinvout");
+    var companyout = document.getElementById("companyout");
+    document.getElementById("nameout").innerHTML = name;
+    document.getElementById("gstinout").innerHTML = gstin;
+    document.getElementById("addressout").innerHTML = address;
+    document.getElementById("cityout").innerHTML = city;
+    document.getElementById("stateout").innerHTML = state;
+    document.getElementById("countryout").innerHTML = country;
+
+
+    document.getElementById("billtoout").innerHTML = billto;
+    document.getElementById("clientcmpout").innerHTML = clientcmp;
+    document.getElementById("cgstinout").innerHTML = cgstin;
+    document.getElementById("caddressout").innerHTML = caddress;
+    document.getElementById("ccityout").innerHTML = ccity;
+    document.getElementById("cstateout").innerHTML = cstate;
+    document.getElementById("ccountryout").innerHTML = ccountry;
+   // document.getElementById("stateout").innerHTML = sstate;
+
+    
+    
+  document.getElementById("sfhsldfj");
+  
+
+
+    console.log(company);
+
+    // const file = event.target.files[0];
+    // console.log(event);
+    
+    //     const reader = new FileReader();
+    //     reader.onload = function(e) {
+    //         imgout.src = e.target.result;
+    //     }
+    //     reader.readAsDataURL(file);
+   taxinvout.innerHTML = tax;
+   companyout.textContent = company;
+
+
+}
+
+wholeform.addEventListener('change',out);
+
+function State(event)
+{
+    event.preventDefault();
+    var content = event.target.options[event.target.selectedIndex].innerHTML;
+    console.log(content);
+   document.getElementById("stateout").innerHTML= "Place of Supply: "+content;
+  // console.log("place of "+content);
+
+}
